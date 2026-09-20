@@ -19,10 +19,6 @@
 
 // El ngAfterContentInit se ejecuta cuando el componente se ha inicializado
 
-// El ngOnChanges se dispara cada vez que los inputs de un componente cambian.
-// En este caso, los inputs no son las cajas de texto que se rellenan. Hablamos de inputs
-// cuando tenemos una señal de entrada (ejemplo: creamos una nueva propiedad name = input(...))
-
 // El ngOnDestroy es un método muy útil para hacer limpieza de timers, intervalos de tiempo, cancelar 
 // de suscripciones...
 
@@ -32,3 +28,11 @@
 // ya que es algo muy volatil. Para ello es mejor usar el resource o el rxResource
 // Dentro del efecto tenemos el onCleaup. Se comporta muy similar al ngOnDestroy, ejecutandose cuando
 // el efecto se va a destruir.
+
+// El ngOnChanges se dispara cada vez que los inputs de un componente cambian.
+// En este caso, los inputs no son las cajas de texto que se rellenan. Hablamos de inputs
+// cuando tenemos una señal de entrada (ejemplo: creamos una nueva propiedad name = input(...)).
+// Usando el ejemplo en el title component:
+// Si nosotros necesitamos que cambie o que se ejecute algo cuando cambia el valor de un input property
+// (en este caso, el title), tenemos que verificar primero si es el primer cambio de este o no, porque el
+// previous value puede venir nulo.
