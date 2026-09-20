@@ -1,4 +1,4 @@
-import { afterEveryRender, afterNextRender, Component, effect, OnChanges, OnInit } from '@angular/core';
+import { afterEveryRender, afterNextRender, Component, effect, OnChanges, OnInit, signal } from '@angular/core';
 
 
 const log = ( ...messages: string[] ) => {
@@ -15,10 +15,36 @@ const log = ( ...messages: string[] ) => {
 })
 export class HomePage implements OnInit, OnChanges {
 
+  traditionalProperty = 'Lilla';
+  signalProperty = signal('Lilla');
+
 
   constructor() {
-    log('Constructor llamado')
+    log('Constructor llamado');
+
+    setTimeout(() => {
+      // this.traditionalProperty = 'Juan Carlos';
+      // console.log('hecho')
+      // Esta la forma tradicional de hacer cambios. Pero con el zoneless, a pesar de tenerlo puesto en el
+      // constructor, no se ejecuta. El cambio no se hace
+
+      this.signalProperty.set('Juan Carlos');
+      //Pero con el zoneless, las señales si se ejecutan, ya que el zoneless quiere hacer la aplicación
+      // más eficiente. Por eso recomiendan trabajar con señales, pues pueden seguir en el momento que toca
+      // los cambios de sus valores.
+      // Siempre que se pueda, es importante trabajar con señales para evitar falsos positivos a la hora de
+      // usar propiedades tradicionales
+    }, 2000);
   };
+
+
+  changeTraditional(){
+    this.traditionalProperty = 'Lilla Doughty';
+  }
+
+  changeSignal(){
+    this.signalProperty.set('Lilla Doughty');
+  }
 
 
   basicEffect = effect( ( onCleanup ) => {
